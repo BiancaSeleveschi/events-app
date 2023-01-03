@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link>
+    <nav class="p-3 bg-primary mb-3">
+      <router-link class="m-3" to="/">Home</router-link>
       <router-link :to="{ name: 'event-form' }"> Creare eveniment</router-link>
     </nav>
     <router-view />
@@ -14,7 +14,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  background: lightskyblue;
 }
 
 nav {
@@ -26,7 +26,11 @@ nav a {
   color: #2c3e50;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
+/*nav a.router-link-exact-active {*/
+/*  color: #42b983;*/
+/*}*/
+
+html {
+  background: lightskyblue;
 }
 </style>

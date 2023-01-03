@@ -2,13 +2,19 @@
   <div>
     <h3>Creare eveniment</h3>
     <div>
-      <input v-model="event.title" placeholder="title" type="text" />
       <input
+        class="d-block mb-1 m-auto"
+        v-model="event.title"
+        placeholder="title"
+        type="text"
+      />
+      <input
+        class="d-block mb-1 m-auto"
         v-model="event.description"
         placeholder="description"
         type="text"
       />
-      <select v-model="event.category">
+      <select class="d-block mb-1 m-auto p-1" v-model="event.category">
         <option
           v-for="(category, index) in this.$store.state.categories"
           :key="index"
@@ -17,12 +23,29 @@
         </option>
       </select>
       <!--    <input v-model="event.category" placeholder="category" type="text" />-->
-      <input v-model="event.date" placeholder="date" type="date" />
-      <input v-model="event.location" placeholder="location" type="text" />
-      <input v-model="event.price" placeholder="price" type="number" />
-      <button @click="addNewEvent">Add</button>
+      <input
+        class="d-block mb-1 m-auto"
+        v-model="event.date"
+        placeholder="date"
+        type="date"
+      />
+      <input
+        class="d-block mb-1 m-auto"
+        v-model="event.location"
+        placeholder="location"
+        type="text"
+      />
+      <input
+        class="d-block mb-1 m-auto"
+        v-model="event.price"
+        placeholder="price"
+        type="number"
+      />
+      <button class="d-block mt-2 m-auto btn btn-primary" @click="addNewEvent">
+        Add
+      </button>
     </div>
-    <h4>Creare categorie</h4>
+    <h3 class="mt-5">Creare categorie</h3>
     <div>
       <input v-model="category" placeholder="Category" />
       <button @click="addCategory">Add category</button>
@@ -72,4 +95,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style></style>
