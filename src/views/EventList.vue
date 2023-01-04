@@ -23,6 +23,16 @@
           {{ category }}
         </option>
       </select>
+      <input
+        class="d-block mb-1 m-auto"
+        v-model="eventDateMin"
+        placeholder="Date"
+      />
+      <input
+        class="d-block mb-1 m-auto"
+        v-model="eventDateMax"
+        placeholder="Date"
+      />
       <button
         class="d-block mt-2 m-auto rounded-2 btn btn-secondary"
         @click="searchEvent"
@@ -32,6 +42,11 @@
     </div>
     <div v-for="(event, index) in events" v-bind:key="index">
       <EventCard :event="event" />
+    </div>
+    <div v-show="this.$store.state.isDelete">
+      <div class="alert alert-success" role="alert">
+        The event has been deleted successfully
+      </div>
     </div>
   </div>
 </template>
@@ -50,15 +65,21 @@ export default {
       eventTitle: "",
       eventCategory: this.$store.state.categories[0],
       eventLocation: "",
+      eventDateMin: "",
+      eventDateMax: "",
     };
   },
   methods: {
     searchEvent() {
-      this.events = this.$store.getters.getEventBy(
+      // this.eventDateMax = new Date(this.eventDateMax);
+      this.events = this.$store.getters.getEventsByLocation(
         this.eventTitle,
         this.eventCategory,
-        this.eventLocation
+        this.eventLocation,
+        this.eventDateMin,
+        this.eventDateMax
       );
+      return this.events;
     },
   },
 };

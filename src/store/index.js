@@ -22,8 +22,8 @@ export default new Vuex.Store({
         description: "Bordea",
         category: "Drama",
         date: new Date("03-03-22"),
-        location: "Cluj-Napoca",
-        price: 100,
+        location: "Baia-Mare",
+        price: 130,
       },
       {
         id: "d66454d7-96i2-4717-8c9e-dc1b32f3c1e4",
@@ -31,11 +31,14 @@ export default new Vuex.Store({
         description: "Badea",
         category: "Comedy",
         date: new Date("03-03-22"),
-        location: "Cluj-Napoca",
-        price: 100,
+        location: "Sibiu",
+        price: 220,
       },
     ],
-    categories: ["Comedy", "Drama", "Aventure"], // categories: [
+    categories: ["Comedy", "Drama", "Aventure"],
+    isDelete: false,
+    isEditMode: false,
+    // categories: [
     //   {
     //     id: "23e-45-yg-67h",
     //     name: "Comedy",
@@ -53,25 +56,25 @@ export default new Vuex.Store({
     getEventsByLocation: (state) => (location) => {
       return state.events.filter((e) => e.location === location);
     },
-    getEventBy: (state) => (title, category, location) => {
-      return state.events.filter(
-        (e) =>
-          (e.title.toLowerCase().includes(title.toLowerCase()) &&
-            e.category === category &&
-            e.location === location) ||
-          location === ""
-      );
-      //solutia 2:
-      // return state.events.find((e) => e.title.includes(title));
-      // //sol 3:
-      // let event;
-      // state.events.forEach((e) => {
-      //     if (e.title.includes(title){
-      //         event = e
-      //     }
-      // })
-      // return event;
-    },
+    getEventBy:
+      //, location, eventDateMin, eventDateMax
+      (state) => (category) => {
+        return state.events.filter(
+          (e) =>
+            // e.title.toLowerCase().includes(title.toLowerCase()) ||
+            e.category === category
+        );
+        //solutia 2:
+        // return state.events.find((e) => e.title.includes(title));
+        // //sol 3:
+        // let event;
+        // state.events.forEach((e) => {
+        //     if (e.title.includes(title){
+        //         event = e
+        //     }
+        // })
+        // return event;
+      },
   },
   mutations: {
     ADD_EVENT(state, event) {
@@ -90,6 +93,12 @@ export default new Vuex.Store({
       //solutia 3: spread operator
       //solutia 4: for loop -> shiftarea elementelor la stanga
     },
+    EDIT_DETAILS(state) {
+      state.isEditMode = true;
+    },
+    SAVE_EDIT(state, event) {
+      state.events.push(event);
+    },
   },
   actions: {
     addNewEvent(context, event) {
@@ -100,6 +109,12 @@ export default new Vuex.Store({
     },
     deleteEvent(context, id) {
       context.commit("DELETE_EVENT", id);
+    },
+    editDetails(context) {
+      context.commit("EDIT_DETAILS");
+    },
+    saveEdit(context) {
+      context.commit("SAVE_EDIT");
     },
   },
   modules: {},

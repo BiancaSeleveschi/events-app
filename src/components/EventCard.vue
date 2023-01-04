@@ -18,7 +18,9 @@
     <p>
       Price: <span class="fw-bold"> {{ event.price }} </span>
     </p>
-    <button class="btn btn-danger" @click="deleteEvent">Delete</button>
+    <button id="delete-button" class="btn btn-danger" @click="deleteEvent">
+      Delete
+    </button>
   </div>
 </template>
 
@@ -29,6 +31,7 @@ export default {
   methods: {
     deleteEvent() {
       this.$store.dispatch("deleteEvent", this.event.id);
+      this.$store.state.isDelete = true;
     },
   },
 };
@@ -49,10 +52,14 @@ export default {
   text-decoration: none;
   cursor: pointer;
   border-color: #e1541e;
-  background: mistyrose;
+  background: #c24435;
 }
 
 #title-event-card:hover {
-  color: darkgreen;
+  color: darkblue;
+}
+
+#delete-button:hover {
+  background: #248f00;
 }
 </style>

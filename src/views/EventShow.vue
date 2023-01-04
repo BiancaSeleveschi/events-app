@@ -1,15 +1,56 @@
 <template>
   <div>
-    <img
-      src="https://img.freepik.com/free-vector/stand-up-comedy-logo-with-microphone_1308-95780.jpg?w=900&t=st=1671551486~exp=1671552086~hmac=b4ce472b820eefc4d0ba2601bf28ab829f8a3fd1dd0a56726ee82d521c2fce2c"
-      width="300"
-    />
-    <h3>Title: {{ event.title }}</h3>
-    <p>Description: {{ event.description }}</p>
-    <p>Categorie {{ event.category }}</p>
-    <p>Data: {{ event.date }}</p>
-    <p>Locatie: {{ event.location }}</p>
-    <p>Price: {{ event.price }}</p>
+    <div v-if="!this.$store.state.isEditMode">
+      <img
+        src="https://img.freepik.com/free-vector/stand-up-comedy-logo-with-microphone_1308-95780.jpg?w=900&t=st=1671551486~exp=1671552086~hmac=b4ce472b820eefc4d0ba2601bf28ab829f8a3fd1dd0a56726ee82d521c2fce2c"
+        width="300"
+      />
+      <h3>Title: {{ event.title }}</h3>
+      <p class="pgf-details">Description: {{ event.description }}</p>
+      <p class="pgf-details">Categorie {{ event.category }}</p>
+      <p>Data: {{ event.date }}</p>
+      <p>Locatie: {{ event.location }}</p>
+      <p>Price: {{ event.price }}</p>
+      <button class="btn btn-primary rounded-2" @click="editDetails">
+        Edit
+      </button>
+    </div>
+    <div v-else>
+      <input
+        v-model="event.description"
+        placeholder="description"
+        type="text"
+      />
+      <input
+        class="d-block mb-2 mt-2 m-auto"
+        v-model="event.location"
+        placeholder="location"
+        type="text"
+      />
+      <input
+        class="d-block mb-2 mt-2 m-auto"
+        v-model="event.price"
+        placeholder="price"
+        type="number"
+      />
+      <input
+        class="d-block mb-2 mt-2 m-auto"
+        v-model="event.date"
+        placeholder="date"
+        type="date"
+      />
+      <select class="d-block mb-1 m-auto p-1" v-model="event.category">
+        <option
+          v-for="(category, index) in this.$store.state.categories"
+          :key="index"
+        >
+          {{ category }}
+        </option>
+      </select>
+      <button @click="saveEdit" class="btn btn-success d-block mt-3 m-auto">
+        Save
+      </button>
+    </div>
   </div>
 </template>
 
@@ -17,6 +58,15 @@
 export default {
   name: "EventShow",
   props: ["id"],
+  data() {
+    return {
+      description: "",
+      location: "",
+      pricee: "",
+      date: "",
+      category: "",
+    };
+  },
   // data() {
   //   console.log("data");
   //   return {
@@ -41,6 +91,12 @@ export default {
     },
   },
   methods: {
+    editDetails() {
+      this.$store.dispatch("editDetails");
+    },
+    saveEdit() {
+      this.$store.dispatch("saveEdit", this.event);
+    },
     findEventById1(id) {
       for (let i = 0; i < this.$store.state.events; i++)
         if (this.$store.state.events[i].id === id) {
