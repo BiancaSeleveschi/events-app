@@ -77,17 +77,33 @@ export default new Vuex.Store({
       },
   },
   mutations: {
+    INIT_STORE(state) {
+      console.log("init store", state);
+      if (localStorage.getItem("state")) {
+        console.log("init store - inside state");
+
+        state = JSON.parse(localStorage.getItem("state"));
+      } else {
+        console.log("init store - not inside state");
+
+        localStorage.setItem("state", JSON.stringify(state));
+      }
+      console.log(" after init store", state);
+    },
     ADD_EVENT(state, event) {
       state.events.push(event);
+      localStorage.setItem("state", JSON.stringify(state));
     },
     ADD_CATEGORY(state, category) {
       state.categories.push(category);
+      localStorage.setItem("state", JSON.stringify(state));
     },
     DELETE_EVENT(state, id) {
       let index = state.events.findIndex((e) => e.id === id);
       //solutia 2: forEach
       //solutia 3: for loop
       state.events.splice(index, 1);
+      localStorage.setItem("state", JSON.stringify(state));
       //solutia 2:
       // state.events.slice(index, index + 1);
       //solutia 3: spread operator
@@ -113,8 +129,8 @@ export default new Vuex.Store({
     editDetails(context) {
       context.commit("EDIT_DETAILS");
     },
-    saveEdit(context) {
-      context.commit("SAVE_EDIT");
+    saveEdit(context, event) {
+      context.commit("SAVE_EDIT", event);
     },
   },
   modules: {},

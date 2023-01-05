@@ -7,6 +7,16 @@
     <router-view />
   </div>
 </template>
+<script>
+export default {
+  name: "App",
+  beforeMount() {
+    console.log(" APP init store", this.$store.state);
+    this.$store.commit("INIT_STORE");
+    console.log(" APP init store", this.$store.state);
+  },
+};
+</script>
 
 <style>
 #app {

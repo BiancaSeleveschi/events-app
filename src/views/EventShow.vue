@@ -80,13 +80,14 @@ export default {
   //   console.log("mounted", this.$route.params.id);
   //   this.event1 = this.findEventById3(this.$route.params.id);
   // },
+
   computed: {
     // eslint-disable-next-line vue/return-in-computed-property
     event() {
       return this.$store.getters.getEventById(this.$route.params.id);
       // return this.findEventById5(this.id);
       // console.log("computed", this.$route.params.id);
-      // console.log(this.$store.state.events);
+      // console.log(this.$stores.state.events);
       // console.log(this.$route.params.id);
     },
   },

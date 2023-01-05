@@ -40,13 +40,15 @@
         Search
       </button>
     </div>
-    <div v-for="(event, index) in events" v-bind:key="index">
-      <EventCard :event="event" />
-    </div>
-    <div v-show="this.$store.state.isDelete">
-      <div class="alert alert-success" role="alert">
-        The event has been deleted successfully
+    <transition name="fade">
+      <div v-show="deletedEventTitle != ''">
+        <div class="alert alert-success w-50 mx-auto" role="alert">
+          The event {{ deletedEventTitle }} has been deleted successfully
+        </div>
       </div>
+    </transition>
+    <div v-for="(event, index) in events" v-bind:key="index">
+      <EventCard :event="event" @delete-event="showDeleteAlert" />
     </div>
   </div>
 </template>
@@ -59,10 +61,12 @@ export default {
   components: {
     EventCard,
   },
+
   data() {
     return {
       events: this.$store.state.events,
       eventTitle: "",
+      deletedEventTitle: "",
       eventCategory: this.$store.state.categories[0],
       eventLocation: "",
       eventDateMin: "",
@@ -73,16 +77,33 @@ export default {
     searchEvent() {
       // this.eventDateMax = new Date(this.eventDateMax);
       this.events = this.$store.getters.getEventsByLocation(
-        this.eventTitle,
-        this.eventCategory,
-        this.eventLocation,
-        this.eventDateMin,
-        this.eventDateMax
+        // this.eventTitle,
+        // this.eventCategory,
+        this.eventLocation
+        // this.eventDateMin,
+        // this.eventDateMax
       );
-      return this.events;
+      // return this.events;
+    },
+    showDeleteAlert(eventTitle) {
+      const clear1 = () => (this.deletedEventTitle = "");
+      this.deletedEventTitle = eventTitle;
+      setTimeout(clear1, 5000);
+    },
+    clear() {
+      this.deletedEventTitle = "";
     },
   },
 };
 </script>
 
-<style></style>
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+</style>

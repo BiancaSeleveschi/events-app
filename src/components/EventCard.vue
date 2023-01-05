@@ -31,7 +31,8 @@ export default {
   methods: {
     deleteEvent() {
       this.$store.dispatch("deleteEvent", this.event.id);
-      this.$store.state.isDelete = true;
+      this.$emit("delete-event", this.event.title);
+      // this.$store.state.isDelete = true;
     },
   },
 };
