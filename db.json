@@ -1,0 +1,31 @@
+{
+  "events": [
+    {
+      "id": "d66454d7-9472-4717-8cae-dc1b32f3c1e4",
+      "title": "Stand-up",
+      "description": "Micutu",
+      "category": "Comedy",
+      "date": "03-03-22",
+      "location": "Cluj-Napoca",
+      "price": 100
+    },
+    {
+      "title": "Lacul lebedelor1",
+      "description": "Teatru Cluj1",
+      "category": "Teatru1",
+      "date": "03-03-22",
+      "location": "Cluj Napioca",
+      "price": 230,
+      "id": "d66454d7-96i2-4717-8cae-dc1b32f3c1e4"
+    },
+    {
+      "title": "Lacul lebedelor2",
+      "description": "Teatru Cluj2",
+      "category": "Teatru2",
+      "date": "03-03-22",
+      "location": "Cluj Napioca",
+      "price": 230,
+      "id": "TArUGOZ"
+    }
+  ]
+}

@@ -36,8 +36,7 @@ export default new Vuex.Store({
       },
     ],
     categories: ["Comedy", "Drama", "Aventure"],
-    isDelete: false,
-    isEditMode: false,
+
     // categories: [
     //   {
     //     id: "23e-45-yg-67h",
@@ -81,14 +80,20 @@ export default new Vuex.Store({
       console.log("init store", state);
       if (localStorage.getItem("state")) {
         console.log("init store - inside state");
-
-        state = JSON.parse(localStorage.getItem("state"));
+        const stateFromStorage = JSON.parse(localStorage.getItem("state"));
+        // replaceState(JSON.parse(localStorage.getItem("state"));)
+        state.events = stateFromStorage.events;
+        state.categories = stateFromStorage.categories;
       } else {
         console.log("init store - not inside state");
 
         localStorage.setItem("state", JSON.stringify(state));
       }
       console.log(" after init store", state);
+    },
+    INIT_EVENTS(state, events) {
+      console.log("init events mutation", events);
+      state.events = events;
     },
     ADD_EVENT(state, event) {
       state.events.push(event);
@@ -109,12 +114,6 @@ export default new Vuex.Store({
       //solutia 3: spread operator
       //solutia 4: for loop -> shiftarea elementelor la stanga
     },
-    EDIT_DETAILS(state) {
-      state.isEditMode = true;
-    },
-    SAVE_EDIT(state, event) {
-      state.events.push(event);
-    },
   },
   actions: {
     addNewEvent(context, event) {
@@ -126,11 +125,22 @@ export default new Vuex.Store({
     deleteEvent(context, id) {
       context.commit("DELETE_EVENT", id);
     },
-    editDetails(context) {
-      context.commit("EDIT_DETAILS");
-    },
-    saveEdit(context, event) {
-      context.commit("SAVE_EDIT", event);
+    fetchEvents(context) {
+      fetch("http://localhost:3000/events", {
+        method: "GET",
+      })
+        .then((result) => {
+          console.log("Response events:...");
+          return result.json();
+        })
+        .then((res) => {
+          context.commit("INIT_EVENTS", res);
+          console.log("Response events:", res);
+          return res;
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
     },
   },
   modules: {},

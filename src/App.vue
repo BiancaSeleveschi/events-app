@@ -10,9 +10,10 @@
 <script>
 export default {
   name: "App",
-  beforeMount() {
+  mounted() {
     console.log(" APP init store", this.$store.state);
     this.$store.commit("INIT_STORE");
+
     console.log(" APP init store", this.$store.state);
   },
 };

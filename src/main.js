@@ -4,11 +4,6 @@ import router from "./router";
 import store from "./store";
 import "bootstrap/dist/css/bootstrap.css";
 
-store.subscribe(() => {
-  // localStorage.setItem("state", JSON.stringify(state));
-  store.commit("INIT_STORE");
-});
-
 Vue.config.productionTip = false;
 
 new Vue({

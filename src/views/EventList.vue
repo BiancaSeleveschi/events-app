@@ -50,6 +50,7 @@
     <div v-for="(event, index) in events" v-bind:key="index">
       <EventCard :event="event" @delete-event="showDeleteAlert" />
     </div>
+    <button @click="fetchEvents">Fetch events</button>
   </div>
 </template>
 
@@ -61,7 +62,6 @@ export default {
   components: {
     EventCard,
   },
-
   data() {
     return {
       events: this.$store.state.events,
@@ -73,7 +73,17 @@ export default {
       eventDateMax: "",
     };
   },
+  // mounted() {
+  //   this.$store
+  //     .dispatch("fetchEvents")
+  //     .then((res) => console.log("workssss", res));
+  // },
   methods: {
+    fetchEvents() {
+      this.$store
+        .dispatch("fetchEvents")
+        .then((res) => console.log("workssss", res));
+    },
     searchEvent() {
       // this.eventDateMax = new Date(this.eventDateMax);
       this.events = this.$store.getters.getEventsByLocation(
@@ -83,6 +93,7 @@ export default {
         // this.eventDateMin,
         // this.eventDateMax
       );
+
       // return this.events;
     },
     showDeleteAlert(eventTitle) {
